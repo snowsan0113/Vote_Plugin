@@ -1,0 +1,15 @@
+name: Vote_Plugin
+version: '1.0-SNAPSHOT'
+main: snowsan0113.vote_plugin.Main
+api-version: '1.20'
+
+commands:
+  start_vote:
+    description: 投票を開始するコマンド
+    permission: snowsan0113.vote_plugin.commands.start_vote
+  stop_vote:
+    description: 投票を停止するコマンド
+    permission: snowsan0113.vote_plugin.commands.stop_vote
+  status_vote:
+    description: 投票を開始するコマンド
+    permission: snowsan0113.vote_plugin.commands.start_vote
