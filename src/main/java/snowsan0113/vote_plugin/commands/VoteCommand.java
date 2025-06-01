@@ -18,7 +18,7 @@ public class VoteCommand implements CommandExecutor {
             int arg_size = args.length;
 
             List<String> vote_list = new ArrayList<>(Arrays.asList(args).subList(2, arg_size));
-            new VoteManager(args[0], Integer.parseInt(args[1]), vote_list);
+            new VoteManager(args[0], args[1], Integer.parseInt(args[1]), vote_list);
 
             Bukkit.broadcastMessage("投票を開始しました。" + vote_list);
         }

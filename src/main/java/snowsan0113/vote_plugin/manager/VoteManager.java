@@ -17,13 +17,15 @@ public class VoteManager {
 
     //投票の中身
     private final String name;
+    private final String display_name;
     private int time;
     private final Map<String, List<OfflinePlayer>> vote_player_map;
     private final BukkitTask task;
 
-    public VoteManager(String name, int time, List<String> detail_list) {
+    public VoteManager(String name, String display_name, int time, List<String> detail_list) {
         this.name = name;
         this.vote_player_map = new HashMap<>();
+        this.display_name = display_name;
         for (String detail : detail_list) {
             this.vote_player_map.put(detail, new ArrayList<>());
         }
@@ -77,6 +79,10 @@ public class VoteManager {
 
     public String getName() {
         return name;
+    }
+
+    public String getDisplayName() {
+        return display_name;
     }
 
     public Map<String, List<OfflinePlayer>> getVoteMap() {
