@@ -71,10 +71,59 @@ public class VoteManager {
                 }
             }
         }.runTaskTimer(Main.getPlugin(Main.class), 0L, 20L);
+
+        vote_list.add(this);
     }
 
-    public void addVote(CommandSender sender, String detail) {
-        vote_player_map.get(detail).add((OfflinePlayer) sender);
+    public int addVote(CommandSender sender, String detail) {
+        if (!isVoted((OfflinePlayer) sender)) {
+            if (vote_player_map.get(detail) != null) {
+                vote_player_map.get(detail).add((OfflinePlayer) sender);
+                return 0;
+            }
+            else {
+                return 1;
+            }
+        }
+        else {
+            return 2;
+        }
+    }
+
+    public void removeVote(CommandSender sender) {
+        String voted_name = getVotedDetail((OfflinePlayer) sender);
+        if (isVoted((OfflinePlayer) sender) && voted_name != null) {
+            List<OfflinePlayer> vote_player_list = vote_player_map.get(voted_name);
+            if (vote_player_list != null) {
+                vote_player_list.remove(sender);
+            }
+        }
+    }
+
+    public String getVotedDetail(OfflinePlayer player) {
+        if (isVoted(player)) {
+            for (Map.Entry<String, List<OfflinePlayer>> entry : vote_player_map.entrySet()) {
+                String detail = entry.getKey();
+                List<OfflinePlayer> vote_player_list = entry.getValue();
+
+                if (vote_player_list.contains(player)) {
+                    return detail;
+                }
+            }
+        }
+        return null;
+    }
+
+    public boolean isVoted(OfflinePlayer player) {
+        for (Map.Entry<String, List<OfflinePlayer>> entry : vote_player_map.entrySet()) {
+            List<OfflinePlayer> map_vote_player = entry.getValue();
+
+            if (map_vote_player.contains((OfflinePlayer) player)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     public String getName() {

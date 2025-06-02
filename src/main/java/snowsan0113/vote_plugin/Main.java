@@ -12,6 +12,7 @@ public final class Main extends JavaPlugin {
         getCommand("start_vote").setExecutor(new VoteCommand());
         getCommand("stop_vote").setExecutor(new VoteCommand());
         getCommand("status_vote").setExecutor(new VoteCommand());
+        getCommand("vote").setExecutor(new VoteCommand());
 
         getLogger().info("[VotePlugin] プラグインが有効になりました。");
     }

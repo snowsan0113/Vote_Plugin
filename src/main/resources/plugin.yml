@@ -13,3 +13,6 @@ commands:
   status_vote:
     description: 投票を開始するコマンド
     permission: snowsan0113.vote_plugin.commands.start_vote
+  vote:
+    description: 投票するコマンド
+    permission: snowsan0113.vote_plugin.commands.vote
