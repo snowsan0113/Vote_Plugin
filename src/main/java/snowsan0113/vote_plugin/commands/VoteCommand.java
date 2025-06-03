@@ -5,6 +5,7 @@ import org.bukkit.OfflinePlayer;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import snowsan0113.vote_plugin.manager.Vote;
 import snowsan0113.vote_plugin.manager.VoteManager;
 
 import java.util.ArrayList;
@@ -20,7 +21,7 @@ public class VoteCommand implements CommandExecutor {
             int arg_size = args.length;
 
             List<String> vote_list = new ArrayList<>(Arrays.asList(args).subList(3, arg_size));
-            new VoteManager(args[0], args[1], Integer.parseInt(args[2]), vote_list);
+            VoteManager.startVote(args[0], args[1], Integer.parseInt(args[2]), vote_list);
 
             Bukkit.broadcastMessage("投票を開始しました。" + vote_list);
         }
@@ -28,16 +29,16 @@ public class VoteCommand implements CommandExecutor {
 
         }
         else if (cmd.getName().equalsIgnoreCase("status_vote")) {
-            List<VoteManager> vote_list = VoteManager.getVoteList();
+            List<Vote> vote_list = VoteManager.getVoteList();
             if (args.length == 0) {
                 StringBuilder builder = new StringBuilder();
-                for (VoteManager voteManager : vote_list) {
+                for (Vote voteManager : vote_list) {
                     builder.append("「" + voteManager.getDisplayName() + "」");
                 }
                 send.sendMessage("現在行われてる投票: " + builder);
             }
             else {
-                VoteManager vote = VoteManager.getVoteList().stream()
+                Vote vote = VoteManager.getVoteList().stream()
                         .filter(manager -> manager.getName().equalsIgnoreCase(args[0]))
                         .findFirst()
                         .orElse(null);
@@ -68,7 +69,7 @@ public class VoteCommand implements CommandExecutor {
             }
         }
         else if (cmd.getName().equalsIgnoreCase("vote")) {
-            VoteManager vote = VoteManager.getVoteList().stream()
+            Vote vote = VoteManager.getVoteList().stream()
                     .filter(manager -> manager.getName().equalsIgnoreCase(args[0]))
                     .findFirst()
                     .orElse(null);
